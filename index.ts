@@ -16,4 +16,16 @@ const Server = app.listen(port, ()=>{
     
 })
 
+process.on("uncaughtException",(error:Error)=>{
+    console.log(`uncaughtException error: ${error}`)
+
+    process.exit(1)
+})
+process.on("unhandledRejection",(error:Error)=>{
+    console.log(`unhandledRejection error: ${error}`)
+
+    Server.close(()=>{
+        process.exit(1)
+    })
+})
 
